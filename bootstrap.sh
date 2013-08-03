@@ -27,21 +27,21 @@ tags\
 
 # set up hooks for ctag generation
 # https://github.com/lyosha/ctags-go/blob/master/FAQ
-echo "\
-#!/bin/sh
-cd $DESTINATION
-ctags *
-find * -type d -prune -print | ctags -aR --file-scope=no -L" > $DESTINATION/.git/hooks/dirtags
+#echo "\
+##!/bin/sh
+#cd $DESTINATION
+#ctags *
+#find * -type d -prune -print | ctags -aR --file-scope=no -L" > $DESTINATION/.git/hooks/dirtags
 
-echo "\
-#!/bin/sh
-cd $GIT_DIR/..
-echo `pwd`
-find * -type d -exec dirtags {} \; " > $DESTINATION/.git/hooks/post-commit
+#echo "\
+##!/bin/sh
+#cd $GIT_DIR/..
+#echo `pwd`
+#find * -type d -exec dirtags {} \; " > $DESTINATION/.git/hooks/post-commit
 
-chmod +x $DESTINATION/.git/hooks/dirtags
-chmod +x $DESTINATION/.git/hooks/post-commit
-cp $DESTINATION/.git/hooks/post-commit $DESTINATION/.git/hooks/post-merge
+#chmod +x $DESTINATION/.git/hooks/dirtags
+#chmod +x $DESTINATION/.git/hooks/post-commit
+#cp $DESTINATION/.git/hooks/post-commit $DESTINATION/.git/hooks/post-merge
 
 
 # Setup Pre-commit-hooks
