@@ -50,7 +50,7 @@ bash $SCRIPT_DIR/Pre-commit-hooks/install_hooks.sh $DESTINATION
 # set up License file
 cp LICENSE $DESTINATION
 
-git add \.
+git add "."
 
 git commit -m 'first'
 
