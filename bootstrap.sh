@@ -11,6 +11,9 @@ LANG=$2
 
 mkdir $DESTINATION
 
+echo $DESTINATION
+echo $SCRIPT_DIR
+
 cd $DESTINATION
 # call git init
 git init
@@ -42,8 +45,7 @@ cp $DESTINATION/.git/hooks/post-commit $DESTINATION/.git/hooks/post-merge
 
 
 # Setup Pre-commit-hooks
-Pre-commit-hooks/install.sh $DESTINATION/.git/hooks
-cp gofmt-git-hook/fmt-check $DESTINATION/.git/hooks/pre-commit-gofmt
+bash $SCRIPT_DIR/Pre-commit-hooks/install_hooks.sh $DESTINATION
 
 # set up License file
 cp LICENSE $DESTINATION
@@ -52,4 +54,12 @@ git add .
 
 git commit -m 'first'
 
+case "$LANG" in
+"go")
+    echo "Go"
+;;
+"shell")
+    echo "shell"
+;;
+esac
 
