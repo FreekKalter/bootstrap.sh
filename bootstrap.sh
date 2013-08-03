@@ -1,8 +1,24 @@
 #!/bin/bash
 
-# $1 is project/dir name
-# $2 is optional language
+while getopts ":l:" opt; do
+    case $opt in
+        l)
+            LANG=$OPTARG
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            exit 1
+            ;;
+        :)
+            echo "Option -$OPTARG requires an argument." >&2
+            exit 1
+            ;;
+    esac
+    shift $((OPTIND-1))
+done
+
 if [ -z $1 ]; then
+    echo "No dir specified"
     exit
 fi
 
@@ -17,7 +33,7 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
     [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
 SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-LANG=$2
+
 
 cd $DESTINATION
 
