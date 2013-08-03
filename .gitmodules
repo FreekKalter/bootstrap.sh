@@ -1,6 +1,0 @@
-[submodule "Pre-commit-hooks"]
-	path = Pre-commit-hooks
-	url = https://github.com/githubbrowser/Pre-commit-hooks.git
-[submodule "gofmt-git-hook"]
-	path = gofmt-git-hook
-	url = https://github.com/edsrzf/gofmt-git-hook.git
