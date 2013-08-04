@@ -1,0 +1,4 @@
+#!/bin/bash
+cd $1
+ctags *
+find * -type d -prune -print | ctags -aR --file-scope=no -L

@@ -36,53 +36,29 @@ SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 
 cd $DESTINATION
-
 # call git init
-git init
-cd $SCRIPT_DIR
+git init --template=$SCRIPT_DIR/git-template
 
 # Create gitignore
 echo "\
-.*.sw[a-z]
+    .*.sw[a-z]
 tags\
-" > $DESTINATION/.gitignore
+    " > .gitignore
 
-echo "\
-# $DESTINATION" >$DESTINATION/README.md
+echo "# `basename $DESTINATION`" > README.md
 
-# set up hooks for ctag generation
-# https://github.com/lyosha/ctags-go/blob/master/FAQ
-echo "\
-#!/bin/sh
-cd $1
-ctags *
-find * -type d -prune -print | ctags -aR --file-scope=no -L" > $HOOK_DEST/dirtags
-
-echo "\
-#!/bin/sh
-cd \$GIT_DIR/..
-echo `pwd`
-find * -type d -exec .git/hooks/dirtags {} \; " > $HOOK_DEST/post-commit
-
-chmod +x $HOOK_DEST/dirtags
-chmod +x $HOOK_DEST/post-commit
-cp $HOOK_DEST/post-commit $HOOK_DEST/post-merge
-
-# Setup Pre-commit-hooks
-cp pre-commit $HOOK_DEST
-cp pre-commit-default $HOOK_DEST
-
+cd $SCRIPT_DIR
 # set up License file
 cp LICENSE $DESTINATION
 
 case "$LANG" in
-"go")
-    echo "Go"
-    cp gofmt-git-hook/fmt-check $HOOK_DEST/pre-commit-gofmt
-;;
-"shell")
-    echo "shell"
-;;
+    "go")
+        echo "Go"
+        cp gofmt-git-hook/fmt-check $HOOK_DEST/pre-commit-gofmt
+        ;;
+    "shell")
+        echo "shell"
+        ;;
 esac
 
 cd $DESTINATION
